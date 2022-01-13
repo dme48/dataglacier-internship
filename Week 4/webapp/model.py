@@ -1,14 +1,32 @@
 # Importing the libraries
-import numpy as np
 import pandas as pd
 import pickle
+from sklearn.linear_model import LinearRegression
 
-dataset = pd.read_csv('vgsales.csv')
+MODEL_PATH = "model.pkl"
+
+df = pd.read_csv('crab_age.csv').dropna()
+df = df[df["Sex"].isin(("M", "F"))]
 
 # Process csv
+fields = ["Sex", "Length", "Diameter", "Height", "Weight"]
+X = pd.get_dummies(data=df[fields])
+y = df["Age"]
 
-# Build model, keep the object
+# Build model, fit model
+model = LinearRegression()
+model.fit(X, y)
+
 
 # Pickle the object
+with open(MODEL_PATH,'wb') as savefile:
+    pickle.dump(model, savefile)
 
-# Optional: test model
+
+# Optional: test loading and use of model
+example = [[1.0, 0.9, 0.3, 10, 1, 0]]
+with open(MODEL_PATH, 'rb') as savefile:
+    model = pickle.load(savefile)
+
+prediction = model.predict(example)
+print(prediction)
