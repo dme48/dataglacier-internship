@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <head>
     <title> Form FILL FORM </title>
     <meta charset="UTF-8">
@@ -15,7 +17,21 @@
         font-size: 20px;
         color: white;">
 
-        Post in the middle
+        <!-- Prediction input -->
+        <div>
+            <form action="{{ url_for('predict')}}" method="post">
+                <input type="text" name="no_of_rooms" placeholder="Number of Rooms" required="required" />
+                <input type="text" name="area" placeholder="Area (in square feet)" required="required" />
+                <input type="text" name="house_age" placeholder="House Age" required="required" />
+
+                <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+            </form>
+
+            <br>
+            <br>
+            {{ prediction_text }}
+
+        </div>
 
     </main>
 </body>
