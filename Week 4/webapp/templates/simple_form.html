@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title> Form FILL FORM </title>
+    <title> Crab Age Prediction </title>
     <meta charset="UTF-8">
 </head>
 
@@ -20,13 +20,12 @@
         <!-- Prediction input -->
         <div>
             <form action="{{ url_for('predict')}}" method="post">
-                <input type="text" name="no_of_rooms" placeholder="Number of Rooms" required="required" />
-                <input type="text" name="area" placeholder="Area (in square feet)" required="required" />
-                <input type="text" name="house_age" placeholder="House Age" required="required" />
-
-                <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+                <input type="text" name="Length" placeholder="Length (0.2-2.1 ft.)" required="required" /><br>
+                <input type="text" name="Diameter" placeholder="Diameter (0.1-1.7 ft.)" required="required" /><br>
+                <input type="text" name="Height" placeholder="Height (0.1-2.9 ft.)" required="required" /><br>
+                <input type="text" name="Weight" placeholder="Weight (0-80 oz.)" required="required" /><br>
+                <button type="submit" class="btn btn-primary btn-block btn-large">Predict Age</button>
             </form>
-
             <br>
             <br>
             {{ prediction_text }}

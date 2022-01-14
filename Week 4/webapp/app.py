@@ -1,26 +1,24 @@
 import numpy as np
-from flask import Flask, request,render_template
+from flask import Flask, request, render_template
 import pickle
 
 app = Flask(__name__)
-model = pickle.load(open('model.pkl', 'rb'))
+with open('model.pkl', 'rb') as model_file:
+    model = pickle.load(model_file)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('simple_form.html')
 
 @app.route('/predict',methods=['POST'])
 def predict():
     '''
     For rendering results on HTML GUI
     '''
-    int_features = [int(x) for x in request.form.values()]
-    final_features = [np.array(int_features)]
-    prediction = model.predict(final_features)
-
-    output = round(prediction[0], 2)
-
-    return render_template('index.html', prediction_text='House price should be $ {}'.format(output))
+    X = [float(x) for x in request.form.values()]
+    prediction = round(model.predict([X])[0])
+    output_text = f"The predicted age of the crab is {prediction} years."
+    return render_template('simple_form.html', prediction_text=output_text)
 
 if __name__ == "__main__":
     app.run(debug=True)
