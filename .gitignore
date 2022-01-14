@@ -1,4 +1,5 @@
 *.ipynb_checkpoints
 *.tex
+img_*.png
 environment
 __pycache__
