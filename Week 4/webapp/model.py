@@ -6,10 +6,9 @@ from sklearn.linear_model import LinearRegression
 MODEL_PATH = "model.pkl"
 
 df = pd.read_csv('crab_age.csv').dropna()
-df = df[df["Sex"].isin(("M", "F"))]
 
 # Process csv
-fields = ["Sex", "Length", "Diameter", "Height", "Weight"]
+fields = ["Length", "Diameter", "Height", "Weight"]
 X = pd.get_dummies(data=df[fields])
 y = df["Age"]
 
@@ -24,7 +23,7 @@ with open(MODEL_PATH,'wb') as savefile:
 
 
 # Optional: test loading and use of model
-example = [[1.0, 0.9, 0.3, 10, 1, 0]]
+example = [[1.0, 0.9, 0.3, 10]]
 with open(MODEL_PATH, 'rb') as savefile:
     model = pickle.load(savefile)
 
