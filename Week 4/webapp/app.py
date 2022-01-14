@@ -1,6 +1,8 @@
 import pickle
 from flask import Flask, request, render_template
 
+app = Flask(__name__)
+
 with open('model.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
 
@@ -18,5 +20,4 @@ def render_prediction():
     return render_template('simple_form.html', prediction_text=output_text)
 
 if __name__ == "__main__":
-    app = Flask(__name__)
     app.run()
