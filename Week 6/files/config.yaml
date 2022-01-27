@@ -4,6 +4,7 @@ file_name: toy_db_*.csv
 current_delimiter: ","
 desired_delimiter: "|"
 skip_leading_rows: 1
+row_count: 2200
 columns:
   - user_id
   - name
