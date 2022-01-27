@@ -1,0 +1,30 @@
+file_type: csv
+dataset_name: large_toy_dataset
+file_name: toy_db_*.csv
+current_delimiter: ","
+desired_delimiter: "|"
+skip_leading_rows: 1
+columns:
+  - user_id
+  - name
+  - review_count
+  - yelping_since
+  - useful
+  - funny
+  - cool
+  - elite
+  - friends
+  - fans
+  - average_stars
+  - compliment_hot
+  - compliment_more
+  - compliment_profile
+  - compliment_cute
+  - compliment_list
+  - compliment_note
+  - compliment_plain
+  - compliment_cool
+  - compliment_funny
+  - compliment_writer
+  - compliment_photos
+
