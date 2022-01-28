@@ -1,4 +1,5 @@
-file_name: large_db.csv
+current_file_name: large_db.csv
+desired_file_name: large_db.gz
 current_delimiter: ","
 desired_delimiter: "|"
 current_compression: infer
