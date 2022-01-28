@@ -52,7 +52,7 @@ def validate_all(dataframe: pd.DataFrame, config: dict) -> 0 | 1:
     return col_validation * row_validation
 
 
-def format_column_names(dataframe: pd.DataFrame) -> None:
+def format_column_names(df: pd.DataFrame) -> None:
     """
     Formats the names in the columns by
         - Turning whitespace into underscores
@@ -61,14 +61,15 @@ def format_column_names(dataframe: pd.DataFrame) -> None:
         - Removing repeated underscores
     """
     # Strip whitespaces at ends BEFORE replacing the rest with "_"
-    dataframe.columns = list(map(lambda x: x.strip(), list(dataframe.columns)))
-    dataframe.columns = dataframe.columns.str.replace('[^\w]', '_', regex=True)
+    df.columns = list(map(lambda x: x.strip(), list(df.columns)))
+    df.columns = df.columns.str.replace('[^\w]', '_', regex=True)
 
-    dataframe.columns = list(map(remove_non_ascii_characters, list(dataframe.columns)))
+    df.columns = list(map(remove_non_ascii_characters, list(df.columns)))
 
-    dataframe.columns = dataframe.columns.str.lower()
+    df.columns = df.columns.str.lower()
 
-    dataframe.columns = list(map(lambda x: remove_duplicate_char(x, "_"), list(dataframe.columns)))
+    df.columns = list(
+        map(lambda x: remove_duplicate_char(x, "_"), list(df.columns)))
 
 
 def remove_duplicate_char(name: str, c: str):
