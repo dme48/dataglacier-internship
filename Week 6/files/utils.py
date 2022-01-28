@@ -1,4 +1,3 @@
-import logging
 import yaml
 import re
 import pandas as pd
@@ -20,8 +19,8 @@ def validate_columns(dataframe: pd.DataFrame, config: dict) -> 0 | 1:
         print("Names of the provided and expected columns differed.")
         expected_not_provided = expected_columns.difference(provided_columns)
         provided_not_expected = provided_columns.difference(expected_columns)
-        logging.info(f"Expected columns not present: {expected_not_provided}")
-        logging.info(f"Provided columns not expected: {provided_columns}")
+        print(f"Expected columns not present: {expected_not_provided}")
+        print(f"Provided columns not expected: {provided_not_expected}")
         return 0
 
     return 1
@@ -36,8 +35,8 @@ def validate_row_count(dataframe: pd.DataFrame, config: dict) -> 0 | 1:
     provided_rows = len(dataframe.index)
     if provided_rows != expected_rows:
         print("Number of rows indicated in config file not the same as in dataframe.")
-        logging.info(f"Expected rows: {expected_rows}")
-        logging.info(f"Provided rows: {provided_rows}")
+        print(f"Expected rows: {expected_rows}")
+        print(f"Provided rows: {provided_rows}")
         return 0
 
     return 1
@@ -62,14 +61,14 @@ def format_column_names(dataframe: pd.DataFrame) -> None:
         - Removing repeated underscores
     """
     # Strip whitespaces at ends BEFORE replacing the rest with "_"
-    df.columns = list(map(lambda x: x.strip(), df.columns.str))
-    df.columns = df.columns.replace('[^\w]', '_', regex=True)
+    dataframe.columns = list(map(lambda x: x.strip(), list(dataframe.columns)))
+    dataframe.columns = dataframe.columns.str.replace('[^\w]', '_', regex=True)
 
-    df.columns = list(map(remove_non_ascii_characters, df.columns))
+    dataframe.columns = list(map(remove_non_ascii_characters, list(dataframe.columns)))
 
-    df.columns = df.columns.lower()
+    dataframe.columns = dataframe.columns.str.lower()
 
-    df.columns = list(map(lambda x: remove_duplicate_char(x, "_")))
+    dataframe.columns = list(map(lambda x: remove_duplicate_char(x, "_"), list(dataframe.columns)))
 
 
 def remove_duplicate_char(name: str, c: str):
