@@ -55,12 +55,15 @@ def format_column_names(dataframe: pd.DataFrame) -> None:
     """
     Formats the names in the columns by
         - Turning whitespace into underscores
+        - Removing non-ascii characters
         - Lowercasing everything
         - Removing repeated underscores
     """
     #Strip whitespaces at ends BEFORE replacing the rest with "_"
     df.columns = list(map(lambda x: x.strip(), df.columns.str))
     df.columns = df.columns.replace('[^\w]', '_', regex=True)
+
+    df.columns = list(map(remove_non_ascii_characters, df.columns))
 
     df.columns = df.columns.lower()
 
@@ -70,6 +73,11 @@ def remove_duplicate_char(name: str, c: str):
     """Removes any consecutive duplicates of c from name, if any"""
     pattern = c + "{2,}"
     return re.sub(pattern, c, name)
+
+def remove_non_ascii_characters(name: str):
+    """Removes any non ascii characters"""
+    ascii_projection = name.encode("ascii", errors="ignore")
+    return ascii_projection.decode()
 
 if __name__ == "__main__":
     df = pd.DataFrame({"city": ["Rome", "Chicago"], "population": [6, 10]})
