@@ -1,6 +1,8 @@
 file_name: large_db.csv
-current_delimiter: ","
-desired_delimiter: "|"
+current_delimiter: ,
+desired_delimiter: |
+current_compression: infer
+desired_compression: gzip 
 row_count: 1314000
 columns:
   - user_id
