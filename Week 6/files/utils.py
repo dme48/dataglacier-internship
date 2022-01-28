@@ -1,10 +1,10 @@
 import logging
 import yaml
+import re
 import pandas as pd
-from dask import dataframe as dd
 
 
-def validate_columns(dataframe, config: dict) -> 0 | 1:
+def validate_columns(dataframe: pd.DataFrame, config: dict) -> 0 | 1:
     """
     Compares the columns in the config file with the columns in the dataframe.
     Returns 0 if any difference is found, 1 otherwise.
@@ -27,7 +27,7 @@ def validate_columns(dataframe, config: dict) -> 0 | 1:
     return 1
 
 
-def validate_row_count(dataframe, config: dict) -> 0 | 1:
+def validate_row_count(dataframe: pd.DataFrame, config: dict) -> 0 | 1:
     """
     Compares the number of rows indicated in the config file with the rows in the dataframe.
     Returns 0 if any difference is found, 1 otherwise.
@@ -42,7 +42,7 @@ def validate_row_count(dataframe, config: dict) -> 0 | 1:
 
     return 1
 
-def validate_all(dataframe, config: dict) -> 0 | 1:
+def validate_all(dataframe: pd.DataFrame, config: dict) -> 0 | 1:
     """
     Compares the number of rows and the name columns in the dataframe and config file.
     Returns 0 if any difference is found, 1 otherwise.
@@ -51,10 +51,29 @@ def validate_all(dataframe, config: dict) -> 0 | 1:
     row_validation = validate_row_count(dataframe, config)
     return col_validation * row_validation
 
+def format_column_names(dataframe: pd.DataFrame) -> None:
+    """
+    Formats the names in the columns by
+        - Turning whitespace into underscores
+        - Lowercasing everything
+        - Removing repeated underscores
+    """
+    #Strip whitespaces at ends BEFORE replacing the rest with "_"
+    df.columns = list(map(lambda x: x.strip(), df.columns.str))
+    df.columns = df.columns.replace('[^\w]', '_', regex=True)
+
+    df.columns = df.columns.lower()
+
+    df.columns = list(map(lambda x: remove_duplicate_char(x, "_")))
+
+def remove_duplicate_char(name: str, c: str):
+    """Removes any consecutive duplicates of c from name, if any"""
+    pattern = c + "{2,}"
+    return re.sub(pattern, c, name)
 
 if __name__ == "__main__":
     df = pd.DataFrame({"city": ["Rome", "Chicago"], "population": [6, 10]})
     with open("config.yaml") as config_file:
         config = yaml.safe_load(config_file)
 
-    validate_row_count(df, config)
+    print(replacer("Hola", "ho"))
