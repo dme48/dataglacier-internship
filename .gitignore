@@ -4,3 +4,4 @@ img_*.png
 environment
 __pycache__
 large_db*.csv
+large_db*.gz
