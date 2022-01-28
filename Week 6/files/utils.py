@@ -42,6 +42,15 @@ def validate_row_count(dataframe, config: dict) -> 0 | 1:
 
     return 1
 
+def validate_all(dataframe, config: dict) -> 0 | 1:
+    """
+    Compares the number of rows and the name columns in the dataframe and config file.
+    Returns 0 if any difference is found, 1 otherwise.
+    """
+    col_validation = validate_columns(dataframe, config)
+    row_validation = validate_row_count(dataframe, config)
+    return col_validation * row_validation
+
 
 if __name__ == "__main__":
     df = pd.DataFrame({"city": ["Rome", "Chicago"], "population": [6, 10]})
