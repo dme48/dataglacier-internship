@@ -10,7 +10,7 @@ def validate_columns(dataframe, config: dict) -> 0 | 1:
 
     if len(expected_columns) != len(provided_columns):
         print("Count of provided and expected columns differed.")
-        return
+        return 0
 
     if expected_columns != provided_columns:
         print("Names of the provided and expected columns differed.")
@@ -18,6 +18,10 @@ def validate_columns(dataframe, config: dict) -> 0 | 1:
         provided_not_expected = provided_columns.difference(expected_columns)
         logging.info(f"Expected columns not present: {expected_not_provided}")
         logging.info(f"Provided columns not expected: {provided_columns}")
+        return 0
+
+    return 1
+
 
 def validate_row_count(dataframe, config: dict) -> 0 | 1:
     expected_rows = config["row_count"]
@@ -26,6 +30,10 @@ def validate_row_count(dataframe, config: dict) -> 0 | 1:
         print("Number of rows indicated in config file not the same as in dataframe.")
         logging.info(f"Expected rows: {expected_rows}")
         logging.info(f"Provided rows: {provided_rows}")
+        return 0
+
+    return 1
+
 
 if __name__ == "__main__":
     df = pd.DataFrame({"city": ["Rome", "Chicago"], "population": [6, 10]})
