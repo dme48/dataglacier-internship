@@ -42,6 +42,7 @@ def validate_row_count(dataframe: pd.DataFrame, config: dict) -> 0 | 1:
 
     return 1
 
+
 def validate_all(dataframe: pd.DataFrame, config: dict) -> 0 | 1:
     """
     Compares the number of rows and the name columns in the dataframe and config file.
@@ -51,6 +52,7 @@ def validate_all(dataframe: pd.DataFrame, config: dict) -> 0 | 1:
     row_validation = validate_row_count(dataframe, config)
     return col_validation * row_validation
 
+
 def format_column_names(dataframe: pd.DataFrame) -> None:
     """
     Formats the names in the columns by
@@ -59,7 +61,7 @@ def format_column_names(dataframe: pd.DataFrame) -> None:
         - Lowercasing everything
         - Removing repeated underscores
     """
-    #Strip whitespaces at ends BEFORE replacing the rest with "_"
+    # Strip whitespaces at ends BEFORE replacing the rest with "_"
     df.columns = list(map(lambda x: x.strip(), df.columns.str))
     df.columns = df.columns.replace('[^\w]', '_', regex=True)
 
@@ -69,19 +71,14 @@ def format_column_names(dataframe: pd.DataFrame) -> None:
 
     df.columns = list(map(lambda x: remove_duplicate_char(x, "_")))
 
+
 def remove_duplicate_char(name: str, c: str):
     """Removes any consecutive duplicates of c from name, if any"""
     pattern = c + "{2,}"
     return re.sub(pattern, c, name)
 
+
 def remove_non_ascii_characters(name: str):
     """Removes any non ascii characters"""
     ascii_projection = name.encode("ascii", errors="ignore")
     return ascii_projection.decode()
-
-if __name__ == "__main__":
-    df = pd.DataFrame({"city": ["Rome", "Chicago"], "population": [6, 10]})
-    with open("config.yaml") as config_file:
-        config = yaml.safe_load(config_file)
-
-    print(replacer("Hola", "ho"))
