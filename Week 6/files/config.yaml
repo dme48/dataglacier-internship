@@ -1,9 +1,6 @@
-file_type: csv
-dataset_name: large_toy_dataset
-file_name: toy_db_*.csv
+file_name: large_db.csv
 current_delimiter: ","
 desired_delimiter: "|"
-skip_leading_rows: 1
 row_count: 1314000
 columns:
   - user_id
@@ -28,4 +25,3 @@ columns:
   - compliment_funny
   - compliment_writer
   - compliment_photos
-
