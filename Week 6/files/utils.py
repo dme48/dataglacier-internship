@@ -5,6 +5,10 @@ from dask import dataframe as dd
 
 
 def validate_columns(dataframe, config: dict) -> 0 | 1:
+    """
+    Compares the columns in the config file with the columns in the dataframe.
+    Returns 0 if any difference is found, 1 otherwise.
+    """
     expected_columns = set(config["columns"])
     provided_columns = set(dataframe.columns)
 
@@ -24,6 +28,10 @@ def validate_columns(dataframe, config: dict) -> 0 | 1:
 
 
 def validate_row_count(dataframe, config: dict) -> 0 | 1:
+    """
+    Compares the number of rows indicated in the config file with the rows in the dataframe.
+    Returns 0 if any difference is found, 1 otherwise.
+    """
     expected_rows = config["row_count"]
     provided_rows = len(dataframe.index)
     if provided_rows != expected_rows:
