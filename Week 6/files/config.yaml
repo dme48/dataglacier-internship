@@ -1,0 +1,30 @@
+current_file_name: large_db.csv
+desired_file_name: large_db.gz
+current_delimiter: ","
+desired_delimiter: "|"
+current_compression: infer
+desired_compression: gzip 
+row_count: 1314000
+columns:
+  - user_id
+  - name
+  - review_count
+  - yelping_since
+  - useful
+  - funny
+  - cool
+  - elite
+  - friends
+  - fans
+  - average_stars
+  - compliment_hot
+  - compliment_more
+  - compliment_profile
+  - compliment_cute
+  - compliment_list
+  - compliment_note
+  - compliment_plain
+  - compliment_cool
+  - compliment_funny
+  - compliment_writer
+  - compliment_photos
